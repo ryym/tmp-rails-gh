@@ -1,0 +1,34 @@
+name: Analyze code statically
+on: pull_request
+env:
+  ALWAYS_SUCCESSFUL_SHOULD: true
+jobs:
+  brakeman:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Analyze code statically using Brakeman
+        uses: moneyforward/brakeman-action@v0
+        continue-on-error: ${{ env.ALWAYS_SUCCESSFUL_SHOULD == 'true' }}
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Analyze code statically using Rubocop
+        uses: moneyforward/rubocop-action@v0
+        continue-on-error: ${{ env.ALWAYS_SUCCESSFUL_SHOULD == 'true' }}
+  misspell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Analyze code statically using misspell
+        uses: moneyforward/misspell-action@v0
+        with:
+          files: |
+            .
+            !./vendor/
+            !./.git/
+            !./node_modules/
+            !./**/*.min.js
+          ignore: bedore
+        continue-on-error: ${{ env.ALWAYS_SUCCESSFUL_SHOULD == 'true' }}
