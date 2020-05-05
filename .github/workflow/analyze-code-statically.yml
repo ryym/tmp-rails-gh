@@ -1,5 +1,5 @@
 name: Analyze code statically
-on: pull_request
+on: push
 env:
   ALWAYS_SUCCESSFUL_SHOULD: true
 jobs:
