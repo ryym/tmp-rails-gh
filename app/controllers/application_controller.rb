@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
     useless_var = 1
 
     do_something ("hoge")
-    do_something2("hoge")
     system(params[:command_injection])
 
     langauge = :japanese
